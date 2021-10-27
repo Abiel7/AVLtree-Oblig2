@@ -15,12 +15,24 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 
+
+/**
+ * Klasse som skal kjøre applikasjonen.
+ * Den extender Application klassa og bruker start metoden for å vise gui-et som me har laga.
+ */
+
 public class AVLAnimation extends Application {
 
     public static void main(String[] args) {
         launch(args);
     }
 
+    /*
+     * Bruker to klasser som skal vise to radiobuttons.
+     * Oppgavene dei har er å bytte innputten til det brukeren kan legge inn i treet.
+     * Valga brukeren har er integer eller string.
+     * Textfield klassa blir brukt til å hente inn det brukeren skriver
+     */
 
     RadioButton radioInt;
     RadioButton radioString;
@@ -28,12 +40,20 @@ public class AVLAnimation extends Application {
     @Override
     public void start(Stage primaryStage) {
 
+        //Borderpane for å vise treet, knapper, radiobuttons og textfield
         BorderPane pane  = new BorderPane() ;
 
+        //initialiserer AvlTree klassa
         AvlTree  tree =  new AvlTree ();
 
+        //initialiserer BstView med et object av AvlTree som parameter i konstruktør metoden
         BstView view =  new BstView(tree);
         pane.setCenter(view);
+        /*
+         * knapper som skal bli brukt til å sette inn tall,
+         * slette, søke, lage tilfedig elementer basert på om treet er int eller string,
+         * og finne kth minste element ved hjelp av O(log n) tidskompleksitet, og ein nullstill-tre knapp
+         */
         Button btnInsert  = new Button("Insert");
         Button btnDelete  = new Button("Delete");
         Button btnSearch = new Button("Search");
@@ -64,6 +84,11 @@ public class AVLAnimation extends Application {
         pane.setBottom(hBox);
         pane.setTop(v);
 
+        /*
+         * I btnInsert vil den sjekke om radioInt er valgt.
+         * Om den er skal innputten være int og det skal vise et tall i treet.
+         * Om ikkje skal treet bruke string
+         * */
         btnInsert.setOnAction(e ->{
 
             try {
@@ -91,6 +116,10 @@ public class AVLAnimation extends Application {
                     view.displayTree();
                 }
             }
+
+            /*
+             * Fanger NumberFormatException om bruker skriver inn feil datatype
+             * */
             catch (NumberFormatException ee) {
 
                 if(radioInt.isSelected()){
@@ -110,7 +139,9 @@ public class AVLAnimation extends Application {
             }
         });
 
-
+        /*
+         * sletter et element i treet. Vil gje ulike tilbakemeldinger om elementet er slettet eller ikkje.
+         * */
         btnDelete.setOnAction(e ->{
          int key = Integer.parseInt(tfkey.getText());
             if (!tree.search(key)){
@@ -129,6 +160,9 @@ public class AVLAnimation extends Application {
             tfkey.clear();
         });
 
+        /*
+         * Button for å søke etter et element i treet
+         * */
         btnSearch.setOnAction(e-> {
                     int key =  Integer.parseInt(tfkey.getText());
 
@@ -143,17 +177,26 @@ public class AVLAnimation extends Application {
                     }
         });
 
+        /*
+         * rydder treet og pane
+         * */
         btnRestart.setOnAction( e-> {
             tree.clear();
             view.restart();
         });
 
+        /*
+         * Button som vil leite etter det kth minste elementet i treet i O(log n) tid.
+         * */
         btnFindElement.setOnAction(e->{
             int key =  Integer.parseInt(tfkey.getText());
             view.setStatus("The " + key + " Smallest  Element is " + tree.find(key));
             view.displayTree();
         });
 
+        /*
+        * btn som skal inserte random tall basert på hvilket radio knapp er valgt
+        * */
         btnInsertRand.setOnAction(e -> {
             if(radioInt.isSelected()){
                 int key  = Integer.parseInt(tfkey.getText());

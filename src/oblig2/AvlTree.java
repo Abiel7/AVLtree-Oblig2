@@ -13,6 +13,10 @@ public class AvlTree<E extends Comparable<E>> extends BST<E> {
         super(objects);
     }
 
+
+    /**
+     * inner klasse som extender bst sin inner klasse
+     * */
     protected  static class AvlTreeNode<E extends  Comparable<E>> extends BST.TreeNode<E>{
 
         int height  =0;
@@ -244,6 +248,7 @@ public class AvlTree<E extends Comparable<E>> extends BST<E> {
     }
 
     /**
+     * finner kth minst Element
      * */
 
     public E find(int k){

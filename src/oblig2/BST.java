@@ -6,10 +6,6 @@ import java.util.Iterator;
 
 /**
  * @param <E>
- */
-
-/**
- * @param <E>
  * Denne klassa implementerer to generiske grensesnitt. Det er Comparable og Tree.
  * Den har to konstruktør metoder, ein som er tom og den andre tar imot ein Array med generiske verdier.
  * Desse blir satt inn i treet ved hjelp av insert metoden som er putta inn i ein for-loop
@@ -30,6 +26,8 @@ public class BST<E extends  Comparable<E>> implements Tree<E> {
         }
     }
 
+    /**
+     * */
     public static  class TreeNode<E extends  Comparable<E>>{
         public E element;
        public   TreeNode<E> left ;
@@ -60,6 +58,7 @@ public class BST<E extends  Comparable<E>> implements Tree<E> {
     }
 
     /**
+     * setter inn i treet basert på gitt element
      * @param e
      * @return
      */
